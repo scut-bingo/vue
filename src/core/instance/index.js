@@ -17,10 +17,19 @@ function Vue (options) {
   this._init(options)
 }
 
+// 注册_init方法，即17行代码调用的那个，是vue初始化的入口方法。
 initMixin(Vue)
+
+// 注册实例属性$data、$props和实例方法$set、$delete、$watch
 stateMixin(Vue)
+
+// 注册实例方法（事件相关）$on、$emit、$once、$off。文档：https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95-%E4%BA%8B%E4%BB%B6
 eventsMixin(Vue)
+
+//  注册实例方法（声明周期相关）。_update、$forceUpdate、$destroy。文档：https://cn.vuejs.org/v2/api/#vm-forceUpdate
 lifecycleMixin(Vue)
+
+// 注册实例方法（声明周期相关）。文档：https://cn.vuejs.org/v2/api/#vm-nextTick
 renderMixin(Vue)
 
 export default Vue

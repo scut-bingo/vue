@@ -3,7 +3,7 @@ import { initGlobalAPI } from './global-api/index'
 import { isServerRendering } from 'core/util/env'
 import { FunctionalRenderContext } from 'core/vdom/create-functional-component'
 
-// 初始化全局api
+// 初始化全局api，即Vue的类静态方法，通过类名直接调用使用
 initGlobalAPI(Vue)
 
 Object.defineProperty(Vue.prototype, '$isServer', {

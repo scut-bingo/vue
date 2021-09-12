@@ -13,6 +13,7 @@ import { resolveScopedSlots } from './resolve-scoped-slots'
 import { bindDynamicKeys, prependModifier } from './bind-dynamic-keys'
 
 export function installRenderHelpers (target: any) {
+  // 把模版编译成渲染函数的时候，渲染函数里边会调用这些方法
   target._o = markOnce
   target._n = toNumber
   target._s = toString
