@@ -5084,11 +5084,14 @@
     return modified
   }
 
+  // 定义vue构造函数
+  // 此处没有使用类class的写法是因为需要给原型上注入许多属性
   function Vue (options) {
     if (!(this instanceof Vue)
     ) {
       warn('Vue is a constructor and should be called with the `new` keyword');
     }
+    // 初始化传入的options
     this._init(options);
   }
 
@@ -5435,6 +5438,7 @@
     // exposed util methods.
     // NOTE: these are not considered part of the public API - avoid relying on
     // them unless you are aware of the risk.
+    // vue.util里面的方法不应被视为全局api，使用它们会带来意想不到的风险，不可轻易使用。
     Vue.util = {
       warn: warn,
       extend: extend,
@@ -5442,6 +5446,7 @@
       defineReactive: defineReactive$$1
     };
 
+    // vue全局方法注册
     Vue.set = set;
     Vue.delete = del;
     Vue.nextTick = nextTick;
@@ -5469,6 +5474,7 @@
     initAssetRegisters(Vue);
   }
 
+  // 初始化全局api
   initGlobalAPI(Vue);
 
   Object.defineProperty(Vue.prototype, '$isServer', {
@@ -9070,14 +9076,15 @@
 
   // install platform specific utils
   Vue.config.mustUseProp = mustUseProp;
-  Vue.config.isReservedTag = isReservedTag;
-  Vue.config.isReservedAttr = isReservedAttr;
-  Vue.config.getTagNamespace = getTagNamespace;
-  Vue.config.isUnknownElement = isUnknownElement;
+  Vue.config.isReservedTag = isReservedTag; // 判断是否是保留标签
+  Vue.config.isReservedAttr = isReservedAttr; // 判断是否是保留属性
+  Vue.config.getTagNamespace = getTagNamespace; // 返回svg或math，暂时没看懂是干啥的
+  Vue.config.isUnknownElement = isUnknownElement; // 判断是否是未知标签
 
   // install platform runtime directives & components
-  extend(Vue.options.directives, platformDirectives);
-  extend(Vue.options.components, platformComponents);
+  // 顾名思义，拓展指令和组件
+  extend(Vue.options.directives, platformDirectives); // 查看文件后发现是transition 和 transitionGroup 组件，处理过渡动画的组件
+  extend(Vue.options.components, platformComponents); // 查看文件后发现是v-show和v-model指令
 
   // install platform patch function
   Vue.prototype.__patch__ = inBrowser ? patch : noop;
@@ -11926,7 +11933,10 @@
     return el && el.innerHTML
   });
 
+  // 先把$mount存储到变量mount
   var mount = Vue.prototype.$mount;
+
+  // 再重写$mount，新增处理template参数的逻辑，这也是完整版本比runtime版本相比多出来的逻辑。
   Vue.prototype.$mount = function (
     el,
     hydrating
@@ -11943,6 +11953,7 @@
 
     var options = this.$options;
     // resolve template/el and convert to render function
+    // 如果同时传入render和template，优先取render，这里只处理了有template的情况，没有template的情况在mount函数中处理，防止代码冗余。
     if (!options.render) {
       var template = options.template;
       if (template) {
@@ -12015,3 +12026,4 @@
   return Vue;
 
 }));
+//# sourceMappingURL=vue.js.map

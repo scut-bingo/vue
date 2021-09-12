@@ -263,6 +263,7 @@ function genConfig (name) {
   return config
 }
 
+// 判断环境变量
 if (process.env.TARGET) {
   module.exports = genConfig(process.env.TARGET)
 } else {

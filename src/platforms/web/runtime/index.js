@@ -21,14 +21,15 @@ import platformComponents from './components/index'
 
 // install platform specific utils
 Vue.config.mustUseProp = mustUseProp
-Vue.config.isReservedTag = isReservedTag
-Vue.config.isReservedAttr = isReservedAttr
-Vue.config.getTagNamespace = getTagNamespace
-Vue.config.isUnknownElement = isUnknownElement
+Vue.config.isReservedTag = isReservedTag // 判断是否是保留标签
+Vue.config.isReservedAttr = isReservedAttr // 判断是否是保留属性
+Vue.config.getTagNamespace = getTagNamespace // 返回svg或math，暂时没看懂是干啥的
+Vue.config.isUnknownElement = isUnknownElement // 判断是否是未知标签
 
 // install platform runtime directives & components
-extend(Vue.options.directives, platformDirectives)
-extend(Vue.options.components, platformComponents)
+// 顾名思义，拓展指令和组件
+extend(Vue.options.directives, platformDirectives) // 查看文件后发现是transition 和 transitionGroup 组件，处理过渡动画的组件
+extend(Vue.options.components, platformComponents) // 查看文件后发现是v-show和v-model指令
 
 // install platform patch function
 Vue.prototype.__patch__ = inBrowser ? patch : noop

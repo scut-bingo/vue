@@ -34,6 +34,7 @@ export function initGlobalAPI (Vue: GlobalAPI) {
   // exposed util methods.
   // NOTE: these are not considered part of the public API - avoid relying on
   // them unless you are aware of the risk.
+  // vue.util里面的方法不应被视为全局api，使用它们会带来意想不到的风险，不可轻易使用。
   Vue.util = {
     warn,
     extend,
@@ -41,6 +42,7 @@ export function initGlobalAPI (Vue: GlobalAPI) {
     defineReactive
   }
 
+  // vue全局方法注册
   Vue.set = set
   Vue.delete = del
   Vue.nextTick = nextTick

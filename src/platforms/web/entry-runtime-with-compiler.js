@@ -1,5 +1,6 @@
 /* @flow */
 
+// 与entry-runtime.js相比，本文件多了许多代码，需要重点查看多出代码的作用
 import config from 'core/config'
 import { warn, cached } from 'core/util/index'
 import { mark, measure } from 'core/util/perf'
@@ -14,7 +15,10 @@ const idToTemplate = cached(id => {
   return el && el.innerHTML
 })
 
+// 先把$mount存储到变量mount
 const mount = Vue.prototype.$mount
+
+// 再重写$mount，新增处理template参数的逻辑，这也是完整版本比runtime版本相比多出来的逻辑。
 Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
@@ -31,6 +35,7 @@ Vue.prototype.$mount = function (
 
   const options = this.$options
   // resolve template/el and convert to render function
+  // 如果同时传入render和template，优先取render，这里只处理了有template的情况，没有template的情况在mount函数中处理，防止代码冗余。
   if (!options.render) {
     let template = options.template
     if (template) {
