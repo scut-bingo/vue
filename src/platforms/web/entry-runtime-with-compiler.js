@@ -101,6 +101,7 @@ function getOuterHTML (el: Element): string {
   }
 }
 
+// 完整版特有的全局api，用来编译模版的
 Vue.compile = compileToFunctions
 
 export default Vue

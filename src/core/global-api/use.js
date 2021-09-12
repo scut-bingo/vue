@@ -10,8 +10,10 @@ export function initUse (Vue: GlobalAPI) {
     }
 
     // additional parameters
+    // 处理参数
     const args = toArray(arguments, 1)
     args.unshift(this)
+    // 如果传入的plugin是个对象，则必须要有一个install方法，如果是个函数，则直接调用
     if (typeof plugin.install === 'function') {
       plugin.install.apply(plugin, args)
     } else if (typeof plugin === 'function') {
